@@ -15,7 +15,7 @@ The plot represent the expenditure and the date of mission of the dataset. The c
 The plot represent the global total expenditure over time.
 
 ### Interactive Lollipop Chart
-Throught this interactive plot is possible to see how much each state spent over time. As said before, some data about the costs aren't available for some states and it is not possible to know the real expenditure for those states.
+Throught this interactive plot is possible to see how much each state spent over time. Change the years in range selection, to see the result. As said before, some data about the costs aren't available for some states and it is not possible to know the real expenditure for those states.
 
 
 
