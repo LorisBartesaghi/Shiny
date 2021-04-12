@@ -6,7 +6,16 @@ One of the main problem in this analysis is the fact that before the 1995/2000 t
 The plots included in the Shiny-app are histograms, scatter plot and time series. Some of them allow to choose the data to show
 
 ### Histogram of Launches
-The plot represent in an inverted histogram how many launches each state had completed. On the x-axis is possible to see the number 
+The plot represent in an inverted histogram how many launches each state had completed. On the x-axis is possible to see the number of launches and on the y-axis the country. It is possible, thanks to plotly, to know the exact number of launches pointing on the bar of the country.
+
+### Interactive Scatter plot
+The plot represent the expenditure and the date of mission of the dataset. The colors allow to understand the country of origin of the mission. Furthermore is possible to select between "all states", "USA", "Russia" and "China" to see their specific mission over time.
+
+### Time series of expenditure
+The plot represent the global total expenditure over time
+
+### Interactive Lollipop Chart
+Throught this interactive plot is possible to see how much each state spent over time. As said before, some data about the costs aren't available for some states and it is not possible to know the real expenditure for those states.
 
 
 
