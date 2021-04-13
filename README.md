@@ -9,7 +9,7 @@ The plots included in the Shiny-app are histograms, scatter plot and time series
 The plot represents in an inverted histogram how many launches each state had completed. On the x-axis is possible to see the number of launches and on the y-axis the country. It is possible, thanks to plotly, to know the exact number of launches pointing on the bar of the state.
 
 ### Interactive Scatter plot
-The plot represents the expenditure and the date of mission of the dataset. The colors allow to understand the country of origin of the mission. Furthermore is possible to select between "all states", "USA", "Russia" and "China" to see their specific mission over time.
+The plot represents the expenditure and the date of mission of the dataset. The colors allow to understand the country of origin of the mission. Furthermore is possible to select between "all states", "USA", "Russia" and "China" to see their specific mission over time (in both tha cases, some of all the launches will be visualized because the big number of launches done and will be impossible to show on the x-axis all the data).
 
 ### Time series of expenditure
 The plot represents the global total expenditure over time.
