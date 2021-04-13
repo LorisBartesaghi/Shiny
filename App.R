@@ -7,7 +7,7 @@ source("Creation dataframe.R")
 #import dataset
 Launch <- read.csv("data/Launch.csv", header = TRUE)
 
-#where there is no values inside the expenditure of the mission, insert 0
+#clean the dataset
 Launch[Launch == ""] <- "0.00"
 Launch %>% filter(!is.na(Rocket))
 Launch$Rocket <- gsub(",","",Launch$Rocket)
@@ -17,8 +17,8 @@ ui <- fluidPage(
   navlistPanel(
     ("Data visualization"),
     tabPanel("Total launches per state", h1("Histogram of launches for each state by 1957"),"The plot below represents the number of launches that are made, tried and failed by each state in the dataset. In the original dataset no informations are available on #MULTI, but probably are mission planned by different coutries.",plotlyOutput(outputId = "tlps")),
-    tabPanel("Cost launches during time", h1("Scatter-plot of expenditure for each launches over time"), "The x-axis represents the time in month and year, while the y-axis (in millions of dollars) are the expenditures. It's also possible to understand which state planned the launch throught to the label.
-             The first plot (all States) shows only partial data beacuse of the number of launches are enormous, and some point aren't shown becuase of the density of launches in some period. It's possible to select one state between USA, Russia and China to observe their launches over tiime",
+    tabPanel("Cost launches during time", h1("Scatter-plot of expenditures for each launche over time"), "The x-axis represents the time in month and year, while the y-axis (in millions of dollars) are the expenditures. It's also possible to understand which state planned the launch throught the label.
+             The first plot (all States) shows only partial data because the varaible on the x-axis is not continous, and some point aren't shown becuase of the density of launches in some period. It's possible to select one state between USA, Russia and China to observe their launches over time, also in this case the big number of launches over time don't allow to show all of them on the plot.",
              selectInput("select", label = h3("Select box"), 
                          choices = list("All states" = 1, "USA" = 2, "Russia" = 3, "China" = 4), 
                          selected = 1),
@@ -29,9 +29,9 @@ ui <- fluidPage(
     
     
     ("Some analysis"),
-    tabPanel(" Total expenditure for aerospaces launches for each state",
-             h1("Lollipop chart of States expenditure in a range of years"),"Select tha range that you want to observe, the plot will return the expenditure of each State in the dataset in that period",
-             sliderInput("slider2", label = h3("Select the starting and ending year for your analysis"), sep ="",min = 2000, 
+    tabPanel(" Total expenditures for aerospace launches for each state",
+             h1("Lollipop chart of states expenditures in a range of years"),"Select tha range that you want to observe, the plot will return the expenditures of each State in the dataset in that period.",
+             sliderInput("slider2", label = h3("Select the starting and ending year"), sep ="",min = 2000, 
                          max = 2020, value = c(2000, 2020), step = 1),
              plotOutput(outputId = "Lollipop"))
     
@@ -49,7 +49,7 @@ server <- function(input, output){
                     y = X,
                     name = "country",
                     type = "bar",width = 1200, height = 600) %>%
-      layout(xaxis = list(title = "Expenditures in millions of dollar",
+      layout(xaxis = list(title = "Number of launches",
                           zeroline = TRUE))
   })
   
@@ -63,6 +63,8 @@ server <- function(input, output){
     #rocket column as numeric
     Launch1$Rocket <- lapply(Launch1$Rocket, as.numeric)
     
+    
+    #Based on the widget selection by the user, select the state in the proper column in the dataset
     if ( input$select == 1){
       Launch1 <- Launch1
     } else if (input$select == 2){
@@ -73,7 +75,7 @@ server <- function(input, output){
       Launch1 <- filter(Launch1, Launch1$Companys.Country.of.Origin == "China")
     }
     
-  
+    #plot the graph
     sp_plot <- plot_ly(Launch1, x = ~MY, y=  ~Rocket, type = "scatter", mode = "markers", color = ~Launch1$Companys.Country.of.Origin, width = 1200, height = 600) %>%
       layout(xaxis = list(title = "Year_month"), yaxis = (list(title = "Expenditures (in millions of dollar)")))
   
@@ -87,6 +89,8 @@ server <- function(input, output){
     vec_exp <- integer(21)
     years <- seq(from = 2000, to = 2020, by = 1)
     
+    
+    #nested for loops to creare the vector of expenditures for each state
     for (i in 1:4324){
       for (j in  1:21){
         if(Launch[i,11]== years[j]){
